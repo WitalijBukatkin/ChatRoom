@@ -2,10 +2,8 @@ package com.github.witalijbukatkin.chatroom.messageservice.repository.datajpa;
 
 import com.github.witalijbukatkin.chatroom.messageservice.model.Chat;
 import com.github.witalijbukatkin.chatroom.messageservice.repository.ChatRepository;
-import com.github.witalijbukatkin.chatroom.messageservice.repository.datajpa.CrudChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +20,8 @@ public class DataJpaChatRepositoryImpl implements ChatRepository {
 
     @Override
     public Chat save(Chat chat, String userId) {
-        if (!chat.isNew() && get(chat.getId(), userId) == null ||
-                !isExistUserInChat(chat.getId(), userId)) {
+        if (!chat.isNew() && (get(chat.getId(), userId) == null ||
+                !isExistUserInChat(chat.getId(), userId))) {
             return null;
         }
         return repository.save(chat);

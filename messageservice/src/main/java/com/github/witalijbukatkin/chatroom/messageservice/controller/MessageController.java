@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = MessageController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MessageController {
-    public static final String REST_URL = "/rest/messages";
+    public static final String REST_URL = "/rest/chats/{chatId}/messages";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final MessageService service;
@@ -29,23 +29,23 @@ public class MessageController {
     }
 
     @GetMapping
-    public List<Message> getAll(@RequestParam String userId) {
+    public List<Message> getAll(@PathVariable long chatId, @RequestParam String userId) {
         log.info("getAll for userId {}", userId);
-        return service.getAll(userId);
+        return service.getAllOfChat(chatId, userId);
     }
 
     @GetMapping("/{id}")
-    public Message get(@PathVariable long id, @RequestParam String userId) {
+    public Message get(@PathVariable long id, @PathVariable long chatId, @RequestParam String userId) {
         log.info("get {} for userId {}", id, userId);
-        return service.get(id, userId);
+        return service.get(id, chatId, userId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<Message> create(@Valid @RequestBody Message message, @RequestParam String userId) {
+    public ResponseEntity<Message> create(@Valid @RequestBody Message message, @PathVariable long chatId, @RequestParam String userId) {
         log.info("create {} for userId {}", message, userId);
 
-        Message created = service.create(message, userId);
+        Message created = service.create(message, chatId, userId);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}?userId={userId}")
@@ -56,21 +56,15 @@ public class MessageController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable long id, @RequestParam String userId) {
+    public void delete(@PathVariable long id, @PathVariable long chatId, @RequestParam String userId) {
         log.info("delete {} for userId {}", id, userId);
-        service.delete(id, userId);
+        service.delete(id, chatId, userId);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Message message, @RequestParam String userId) {
+    public void update(@Valid @RequestBody Message message, @PathVariable long chatId, @RequestParam String userId) {
         log.info("update {} for userId {}", message, userId);
-        service.update(message, userId);
-    }
-
-    @GetMapping("/of/{chatId}")
-    public List<Message> getAllOfChat(@PathVariable long chatId, @RequestParam String userId) {
-        log.info("getAllOfChat {} for userId {}", chatId, userId);
-        return service.getAllOfChat(chatId, userId);
+        service.update(message, chatId, userId);
     }
 }

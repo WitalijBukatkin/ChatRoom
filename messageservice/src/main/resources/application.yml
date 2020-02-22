@@ -2,6 +2,8 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: messageservice
   jpa:
     properties:
       hibernate.format_sql: true
@@ -10,7 +12,7 @@ spring:
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.1.73/messageservice
+    url: jdbc:postgresql://192.168.1.70/messageservice
     username: postgres
     password: ChatRoom_PASSWORD
     initialization-mode: always

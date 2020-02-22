@@ -1,31 +1,24 @@
-package com.github.witalijbukatkin.chatroom.messageservice.model;
+package com.github.witalijbukatkin.chatroom.chatroomservice.model;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-public class Chat extends BaseEntity{
-    @NotEmpty
+public class Chat extends BaseEntity {
     private String name;
 
-    @NotEmpty
-    @ElementCollection
     private List<String> users;
 
-    public Chat(Long id, @NotEmpty String name, @NotEmpty List<String> users) {
+    public Chat(Long id, String name, List<String> users) {
         super(id);
         this.name = name;
         this.users = users;
     }
 
-    public Chat(@NotEmpty String name, @NotEmpty List<String> users) {
+    public Chat(String name, List<String> users) {
         this(null, name, users);
     }
 
-    public Chat(){
+    public Chat() {
     }
 
     public String getName() {

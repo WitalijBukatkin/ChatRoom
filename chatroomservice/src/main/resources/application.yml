@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: chatroomservice
+  mvc.view:
+    prefix: /WEB-INF/jsp/
+    suffix: .jsp

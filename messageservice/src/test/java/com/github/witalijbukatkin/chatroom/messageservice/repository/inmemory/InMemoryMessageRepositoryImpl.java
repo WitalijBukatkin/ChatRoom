@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
@@ -27,8 +26,8 @@ public class InMemoryMessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public Message save(Message message, String userId) {
-        if (!chatRepository.isExistUserInChat(message.getChat().getId(), userId)) {
+    public Message save(Message message, long chatId, String userId) {
+        if (!chatRepository.isExistUserInChat(chatId, userId)) {
             return null;
         }
 
@@ -42,8 +41,8 @@ public class InMemoryMessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public boolean delete(long id, String userId) {
-        Message message = get(id, userId);
+    public boolean delete(long id, long chatId, String userId) {
+        Message message = get(id, chatId, userId);
 
         if (message == null && !message.getSenderId().equals(userId)) {
             return false;
@@ -53,10 +52,10 @@ public class InMemoryMessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public Message get(long id, String userId) {
+    public Message get(long id, long chatId, String userId) {
         Message message = messages.get(id);
 
-        if (message == null || !chatRepository.isExistUserInChat(message.getChat().getId(), userId)) {
+        if (message == null) {
             return null;
         }
 
@@ -68,16 +67,18 @@ public class InMemoryMessageRepositoryImpl implements MessageRepository {
         List<Message> returnMessages = new ArrayList<>(messages.values());
 
         return returnMessages.stream()
-                .filter(message -> chatRepository.isExistUserInChat(message.getId(), userId))
+                .filter(message -> chatRepository.isExistUserInChat(message.getChat().getId(), userId))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Message> getAllOfChat(long chatId, String userId) {
-        if(!chatRepository.isExistUserInChat(chatId, userId)){
+        if (!chatRepository.isExistUserInChat(chatId, userId)) {
             return null;
         }
 
-        return new ArrayList<>(messages.values());
+        return new ArrayList<>(messages.values()).stream()
+                .filter(message -> message.getChat().getId() == chatId)
+                .collect(Collectors.toList());
     }
 }

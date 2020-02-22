@@ -2,16 +2,13 @@ package com.github.witalijbukatkin.chatroom.messageservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    @NotNull
     @Id
     @GeneratedValue
     private Long id;

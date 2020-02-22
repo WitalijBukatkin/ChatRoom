@@ -1,7 +1,6 @@
 package com.github.witalijbukatkin.chatroom.messageservice.service;
 
 import com.github.witalijbukatkin.chatroom.messageservice.exception.NotFoundException;
-import com.github.witalijbukatkin.chatroom.messageservice.model.Chat;
 import com.github.witalijbukatkin.chatroom.messageservice.model.Message;
 import com.github.witalijbukatkin.chatroom.messageservice.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,46 +19,46 @@ public class MessageService {
         this.repository = repository;
     }
 
-    public Message create(Message message, String userId){
+    public Message create(Message message, long chatId, String userId) {
         Assert.notNull(message, "message must not be null");
         Assert.notNull(userId, "userId must not be null");
 
-        Message created = repository.save(message, userId);
+        Message created = repository.save(message, chatId, userId);
 
-        if(created == null) {
+        if (created == null) {
             throw new IllegalArgumentException();
         }
 
         return created;
     }
 
-    public Message update(Message message, String userId){
+    public Message update(Message message, long chatId, String userId) {
         Assert.notNull(message, "message must not be null");
         Assert.notNull(message, "userId must not be null");
 
-        Message updated = repository.save(message, userId);
+        Message updated = repository.save(message, chatId, userId);
 
-        if(updated == null) {
+        if (updated == null) {
             throw new NotFoundException();
         }
 
         return updated;
     }
 
-    public void delete(long id, String userId){
+    public void delete(long id, long chatId, String userId) {
         Assert.notNull(userId, "userId must not be null");
 
-        if(!repository.delete(id, userId)) {
+        if (!repository.delete(id, chatId, userId)) {
             throw new NotFoundException();
         }
     }
 
-    public Message get(long id, String userId){
+    public Message get(long id, long chatId, String userId) {
         Assert.notNull(userId, "userId must not be null");
 
-        Message message = repository.get(id, userId);
+        Message message = repository.get(id, chatId, userId);
 
-        if(message == null){
+        if (message == null) {
             throw new NotFoundException();
         }
 

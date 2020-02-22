@@ -18,19 +18,20 @@ public class DataJpaMessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public Message save(Message message, String userId) {
-        if (!message.isNew() && get(message.getId(), userId) == null ||
-                !chatRepository.isExistUserInChat(message.getChat().getId(), userId)) {
+    public Message save(Message message, long chatId, String userId) {
+        if (!message.isNew() && get(message.getId(), chatId, userId) == null ||
+                !chatRepository.isExistUserInChat(chatId, userId)) {
             return null;
         }
+
         return messageRepository.save(message);
     }
 
     @Override
-    public boolean delete(long id, String userId) {
-        Message message = get(id, userId);
+    public boolean delete(long id, long chatId, String userId) {
+        Message message = get(id, chatId, userId);
 
-        if (message == null || !chatRepository.isExistUserInChat(message.getChat().getId(), userId)) {
+        if (message == null) {
             return false;
         }
 
@@ -39,10 +40,10 @@ public class DataJpaMessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public Message get(long id, String userId) {
+    public Message get(long id, long chatId, String userId) {
         Optional<Message> message = messageRepository.findById(id);
 
-        if(message.isEmpty() || !chatRepository.isExistUserInChat(message.get().getChat().getId(), userId)){
+        if (message.isEmpty() || !chatRepository.isExistUserInChat(chatId, userId)) {
             return null;
         }
 

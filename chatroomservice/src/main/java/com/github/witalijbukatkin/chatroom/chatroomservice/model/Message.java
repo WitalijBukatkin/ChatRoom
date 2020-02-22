@@ -1,30 +1,15 @@
-package com.github.witalijbukatkin.chatroom.messageservice.model;
+package com.github.witalijbukatkin.chatroom.chatroomservice.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
-
-@Entity
 public class Message extends BaseEntity {
-    @JsonProperty(access = WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
     private Chat chat;
 
-    @NotEmpty
     private String senderId;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
     private Type type;
 
-    @NotEmpty
     private String data;
 
-    public Message(@NotNull Long id, Chat chat, @NotEmpty String senderId, @NotNull Type type, @NotEmpty String data) {
+    public Message(Long id, Chat chat, String senderId, Type type, String data) {
         super(id);
 
         this.chat = chat;
@@ -33,11 +18,11 @@ public class Message extends BaseEntity {
         this.data = data;
     }
 
-    public Message(Chat chat, @NotEmpty String senderId, @NotNull Type type, @NotEmpty String data) {
+    public Message(Chat chat, String senderId, Type type, String data) {
         this(null, chat, senderId, type, data);
     }
 
-    public Message(){
+    public Message() {
     }
 
     public Chat getChat() {
