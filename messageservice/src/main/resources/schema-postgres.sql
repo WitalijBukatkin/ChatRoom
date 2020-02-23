@@ -1,11 +1,9 @@
-DROP TABLE IF EXISTS "chat";
 CREATE TABLE "public"."chat" (
     "id" bigint NOT NULL,
     "name" character varying(255),
     CONSTRAINT "chat_pkey" PRIMARY KEY ("id")
 );
 
-DROP TABLE IF EXISTS "chat_users";
 CREATE TABLE "public"."chat_users" (
     "chat_id" bigint NOT NULL,
     "users" character varying(255),
@@ -14,7 +12,6 @@ CREATE TABLE "public"."chat_users" (
 
 CREATE UNIQUE ON chat_users (chat_id, users);
 
-DROP TABLE IF EXISTS "message";
 CREATE TABLE "public"."message" (
     "id" bigint NOT NULL,
     "chat_id" bigint NOT NULL,

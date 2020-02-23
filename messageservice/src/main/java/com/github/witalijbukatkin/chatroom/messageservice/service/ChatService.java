@@ -21,7 +21,6 @@ public class ChatService {
     public Chat create(Chat chat, String userId){
         Assert.notNull(chat, "chat must not be null");
         Assert.notNull(userId, "userId must not be null");
-
         Chat created = repository.save(chat, userId);
 
         if(created == null) {
@@ -34,7 +33,6 @@ public class ChatService {
     public Chat update(Chat chat, String userId){
         Assert.notNull(chat, "chat must not be null");
         Assert.notNull(userId, "userId must not be null");
-
         Chat updated = repository.save(chat, userId);
 
         if(updated == null) {
@@ -46,7 +44,6 @@ public class ChatService {
 
     public void delete(long id, String userId){
         Assert.notNull(userId, "userId must not be null");
-
         if(!repository.delete(id, userId)) {
             throw new NotFoundException();
         }
@@ -54,7 +51,6 @@ public class ChatService {
 
     public Chat get(long id, String userId){
         Assert.notNull(userId, "userId must not be null");
-
         Chat chat = repository.get(id, userId);
 
         if(chat == null){
@@ -66,14 +62,12 @@ public class ChatService {
 
     public List<Chat> getAll(String userId){
         Assert.notNull(userId, "userId must not be null");
-
         return repository.getAll(userId);
     }
 
     public void bindUser(long id, String userId, String newUserId){
         Assert.notNull(userId, "userId must not be null");
         Assert.notNull(newUserId, "newUserId must not be null");
-
         Chat chat = get(id, userId);
 
         chat.getUsers().add(newUserId);
@@ -83,7 +77,6 @@ public class ChatService {
 
     public void unbindUser(long id, String userId){
         Assert.notNull(userId, "userId must not be null");
-
         Chat chat = get(id, userId);
 
         if(chat.getUsers().remove(userId)){

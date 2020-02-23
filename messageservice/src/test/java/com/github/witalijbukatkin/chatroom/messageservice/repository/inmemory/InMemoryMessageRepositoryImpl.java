@@ -31,6 +31,8 @@ public class InMemoryMessageRepositoryImpl implements MessageRepository {
             return null;
         }
 
+        message.setChat(chatRepository.get(chatId, userId));
+
         if (message.isNew()) {
             message.setId(counter.getAndIncrement());
             messages.put(message.getId(), message);

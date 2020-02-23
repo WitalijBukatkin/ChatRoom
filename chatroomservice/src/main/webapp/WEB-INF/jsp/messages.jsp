@@ -2,19 +2,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
+<head>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+</head>
 <body>
 <h3>You is ${userId} </h3> <a href="/login">Unlogin</a>
 <h4>Messages:</h4>
-
-<c:forEach items="${messages}" var="message">
-    <br/>--> ${message.senderId} ${message.data}
-</c:forEach>
+<div id="messages">
+    <c:forEach items="${messages}" var="message">
+        <br/>--> ${message.senderId} ${message.data}
+    </c:forEach>
+</div>
 <br/>
 
-<form method="post">
-    <input name="senderId" type="hidden" value="${userId}">
-    <input name="data" type="text"/>
-    <input type="submit" value="Send">
+<form id="message" method="post">
+    <input id="message_text" type="text"/>
+    <a onclick="sendMessage()">Send</a>
 </form>
+<script>
+    let userId = '${userId}';
+    let chatId = '${chatId}'
+</script>
+<script src="${pageContext.request.contextPath}/app.js"></script>
 </body>
 </html>

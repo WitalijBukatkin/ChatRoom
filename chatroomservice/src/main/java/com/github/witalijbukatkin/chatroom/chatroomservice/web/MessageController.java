@@ -1,7 +1,5 @@
 package com.github.witalijbukatkin.chatroom.chatroomservice.web;
 
-import com.github.witalijbukatkin.chatroom.chatroomservice.model.Message;
-import com.github.witalijbukatkin.chatroom.chatroomservice.model.Type;
 import com.github.witalijbukatkin.chatroom.chatroomservice.proxy.messageservice.MessageProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,18 +21,15 @@ public class MessageController {
             return "redirect:login";
         }
 
-        System.out.println(chatId);
-
         model.put("messages", proxy.getAll(chatId, userId));
         model.put("userId", userId);
+        model.put("chatId", chatId);
 
         return "messages";
     }
 
     @PostMapping
-    public String createMessage(@RequestParam String senderId, @RequestParam String data, @PathVariable Long chatId) {
-        proxy.create(new Message(null, senderId, Type.TEXT, data), chatId, senderId);
-
+    public String createMessage(@PathVariable Long chatId, @RequestParam String senderId, @RequestParam String data) {
         return "redirect:/chats/" + chatId + "/?userId=" + senderId;
     }
 }

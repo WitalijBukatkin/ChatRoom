@@ -23,7 +23,7 @@ public class DataJpaMessageRepositoryImpl implements MessageRepository {
                 !chatRepository.isExistUserInChat(chatId, userId)) {
             return null;
         }
-
+        message.setChat(chatRepository.get(chatId, userId));
         return messageRepository.save(message);
     }
 

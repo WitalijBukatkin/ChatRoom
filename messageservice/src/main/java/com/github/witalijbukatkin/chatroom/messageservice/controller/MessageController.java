@@ -48,8 +48,8 @@ public class MessageController {
         Message created = service.create(message, chatId, userId);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}?userId={userId}")
-                .buildAndExpand(created.getId(), userId).toUri();
+                .path(REST_URL + "/" + message.getId() + "?userId=" + userId)
+                .build().toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
