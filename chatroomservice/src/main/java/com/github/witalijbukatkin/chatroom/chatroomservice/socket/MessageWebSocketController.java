@@ -38,6 +38,6 @@ public class MessageWebSocketController {
 
         proxy.create(message, chatId, userId);
 
-        template.convertAndSend("/topic/" + chatId, message);
+        template.convertAndSend("/topic/chats/" + chatId, message);
     }
 }

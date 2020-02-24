@@ -7,7 +7,7 @@ $(function () {
     let socket = new SockJS('/websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function () {
-        stompClient.subscribe('/topic/' + chatId, onMessageReceived, {'username': userId});
+        stompClient.subscribe('/topic/chats/' + chatId, onMessageReceived, {'username': userId});
     });
 });
 
@@ -19,7 +19,7 @@ function sendMessage() {
             type: 'TEXT'
         };
 
-        stompClient.send("/app/" + chatId, {}, JSON.stringify(message));
+        stompClient.send("/app/chats/" + chatId, {}, JSON.stringify(message));
     }
 }
 

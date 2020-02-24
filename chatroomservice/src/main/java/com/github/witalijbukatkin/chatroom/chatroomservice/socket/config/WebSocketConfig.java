@@ -31,12 +31,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/app")
-                .enableStompBrokerRelay("/topic")
+        registry.setApplicationDestinationPrefixes("/app/chats")
+                .enableStompBrokerRelay("/topic/chats")
                 .setRelayHost("localhost")
-                .setClientLogin("chatroom")
-                .setSystemLogin("chatroom")
-                .setClientPasscode("chatroompassword")
-                .setSystemPasscode("chatroompassword");
+                .setClientLogin("chatroom").setSystemLogin("chatroom")
+                .setClientPasscode("chatroompassword").setSystemPasscode("chatroompassword");
     }
 }

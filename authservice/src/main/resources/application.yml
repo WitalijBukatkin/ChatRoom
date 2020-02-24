@@ -1,0 +1,19 @@
+server:
+    port: 5000
+
+spring:
+    application:
+        name: authservice
+    jpa:
+        properties:
+            hibernate.format_sql: true
+            hibernate.hbm2ddl.auto: update
+        show-sql: true
+    datasource:
+        platform: postgres
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://192.168.1.70/authservice
+        username: postgres
+        password: ChatRoom_PASSWORD
+        initialization-mode: always
+        continue-on-error: true
