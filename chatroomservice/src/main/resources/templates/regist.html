@@ -1,20 +1,18 @@
 <html>
 <head>
-    <title>Signin chatroom</title>
+    <title>Registration chatroom</title>
 
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/webjars/noty/3.1.4/lib/noty.css" rel="stylesheet"/>
     <link href="/webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
-    <script defer src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
     <script defer src="/webjars/noty/3.1.4/lib/noty.min.js"></script>
     <script defer src="/js/main.js"></script>
-    <script defer src="/js/registration.js"></script>
-</head>
 
 <body class="text-center">
-<form action="http://192.168.1.71:8080" class="form" method="post">
+<form action="/regist" class="form" method="post">
     <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
 
     <label class="sr-only" for="inputUsername">Username</label>
@@ -26,12 +24,18 @@
            type="password">
 
     <label class="sr-only" for="inputPassword">Repeat this password</label>
-    <input class="form-control" id="inputPassword" placeholder="Repeat this password" required type="password">
+    <input class="form-control" id="inputPassword" name="repeatPassword" placeholder="Repeat this password" required
+           type="password">
 
-    <button class="btn btn-lg btn-primary btn-block" onclick="registration()" type="button">Registration</button>
+    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Registration">
 
     <br>OR<br>
-    <a href="/login" onclick="">I have account</a>
+    <a href="/">I have account</a>
 </form>
+
+<script>
+    let error = "[[${error}]]";
+</script>
+<script src="/js/main.js"></script>
 </body>
 </html>

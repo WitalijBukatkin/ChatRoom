@@ -20,6 +20,10 @@ public class User extends BaseTo implements UserDetails {
         this.password = password;
     }
 
+    public User(String username) {
+        this.username = username;
+    }
+
     public User() {
     }
 
@@ -79,5 +83,12 @@ public class User extends BaseTo implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return isEnabled();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                '}';
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -29,26 +30,26 @@ public class MessageController {
     }
 
     @GetMapping
-    public List<Message> getAll(@PathVariable long chatId, @RequestParam String userId) {
-        log.info("getAll for userId {}", userId);
-        return service.getAllOfChat(chatId, userId);
+    public List<Message> getAll(Principal user, @PathVariable long chatId) {
+        log.info("getAll for userName {}", user.getName());
+        return service.getAllOfChat(chatId, user.getName());
     }
 
     @GetMapping("/{id}")
-    public Message get(@PathVariable long id, @PathVariable long chatId, @RequestParam String userId) {
-        log.info("get {} for userId {}", id, userId);
-        return service.get(id, chatId, userId);
+    public Message get(Principal user, @PathVariable long id, @PathVariable long chatId) {
+        log.info("get {} for userName {}", id, user.getName());
+        return service.get(id, chatId, user.getName());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<Message> create(@Valid @RequestBody Message message, @PathVariable long chatId, @RequestParam String userId) {
-        log.info("create {} for userId {}", message, userId);
+    public ResponseEntity<Message> create(Principal user, @Valid @RequestBody Message message, @PathVariable long chatId) {
+        log.info("create {} for userName {}", message, user.getName());
 
-        Message created = service.create(message, chatId, userId);
+        Message created = service.create(message, chatId, user.getName());
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/" + message.getId() + "?userId=" + userId)
+                .path(REST_URL + "/" + message.getId())
                 .build().toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
@@ -56,15 +57,15 @@ public class MessageController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable long id, @PathVariable long chatId, @RequestParam String userId) {
-        log.info("delete {} for userId {}", id, userId);
-        service.delete(id, chatId, userId);
+    public void delete(Principal user, @PathVariable long id, @PathVariable long chatId) {
+        log.info("delete {} for userName {}", id, user.getName());
+        service.delete(id, chatId, user.getName());
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Message message, @PathVariable long chatId, @RequestParam String userId) {
-        log.info("update {} for userId {}", message, userId);
-        service.update(message, chatId, userId);
+    public void update(Principal user, @Valid @RequestBody Message message, @PathVariable long chatId) {
+        log.info("update {} for userName {}", message, user.getName());
+        service.update(message, chatId, user.getName());
     }
 }

@@ -2,6 +2,7 @@ package com.github.witalijbukatkin.chatroom.chatroomservice.socket;
 
 import com.github.witalijbukatkin.chatroom.chatroomservice.proxy.messageservice.MessageProxy;
 import com.github.witalijbukatkin.chatroom.chatroomservice.to.Message;
+import com.github.witalijbukatkin.chatroom.chatroomservice.to.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -28,16 +29,17 @@ public class MessageWebSocketController {
     public void sendMessage(@DestinationVariable Long chatId, @Payload Message message, SimpMessageHeaderAccessor headerAccessor) {
         Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
 
-        String userId = (String) sessionAttributes.get("username");
+        User user = (User) sessionAttributes.get("user");
+        String btoken = (String) sessionAttributes.get("btoken");
 
-        if (userId == null) {
+        if (user == null) {
             throw new IllegalArgumentException();
         }
 
-        message.setSenderId(userId);
+        message.setSenderId(user.getUsername());
 
-        proxy.create(message, chatId, userId);
+        proxy.create(message, chatId, btoken);
 
-        template.convertAndSend("/topic/chats/" + chatId, message);
+        template.convertAndSend("/topic/" + chatId, message);
     }
 }

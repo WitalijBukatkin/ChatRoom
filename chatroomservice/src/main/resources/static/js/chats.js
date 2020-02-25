@@ -1,20 +1,44 @@
-function updateChats() {
-    let username = $('#chatList').val();
+function chats() {
+    let chatList = $('.chats');
+
+    chatList.append("<h4>Loading...</h4>");
 
     $.ajax({
-        type: "post",
-        url: "http://192.168.1.70:5000/oauth/token",
-        headers: {
-            "Authorization": "Basic " + btoa("service:secret")
-        },
+        type: 'get',
+        url: '/ajax/chats',
+        headers: header,
+        dataType: 'json',
+        success: function (chats) {
+            chatList.empty();
+            $.each(chats, function (index, chat) {
+                chatList.append("<a href='#' id='chat" + chat.id + "' onclick=\"messages(" + chat.id + ")\" class=\"list-group-item list-group-item-action flex-column align-items-start\">\n" +
+                    "                    <div class=\"d-flex justify-content-between\">\n" +
+                    "                        <h5 class=\"mb-1\">" + chat.name + "</h5>\n" +
+                    "                    </div>\n" +
+                    "            </a>");
+            });
+        }
+    });
+}
+
+function newChat() {
+    let withUserId = $('#chatName').val().toLowerCase();
+
+    if (withUserId === null || withUserId === '') {
+        return;
+    }
+
+    $.ajax({
+        type: 'post',
+        url: '/ajax/chats',
+        headers: header,
+        dataType: 'json',
         data: {
-            grand_type: "password",
-            username: username,
-            password: password
+            withUserId: withUserId
         },
-        dataType: "json",
-        success: function () {
-            alert("Ok!");
+        success: function (chats) {
+            chats();
+            $('#chatName').val("");
         }
     });
 }

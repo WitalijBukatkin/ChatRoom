@@ -1,3 +1,11 @@
+$(function () {
+    if (error !== "") {
+        failNoty(error);
+    }
+
+    chats(); //get chats
+});
+
 let failedNote;
 
 function successNoty(text) {

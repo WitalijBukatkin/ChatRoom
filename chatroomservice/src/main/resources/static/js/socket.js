@@ -1,30 +1,32 @@
 'use strict';
 var stompClient = null;
 
-let messageList = $("#messages");
+function connect() {
+    let token = header.Authorization.split(' ')[1];
 
-$(function () {
-    let socket = new SockJS('/websocket');
+    let socket = new SockJS('/websocket/?access_token=' + token);
+
     stompClient = Stomp.over(socket);
-    stompClient.connect({}, function () {
-        stompClient.subscribe('/topic/chats/' + chatId, onMessageReceived, {'username': userId});
-    });
-});
 
-function sendMessage() {
+    stompClient.connect({}, function () {
+        stompClient.subscribe('/topic/' + currentChatId, onMessageReceived);
+    });
+}
+
+function sendMessage(chatId, text) {
     if (stompClient) {
         let message = {
             senderId: name,
-            data: $('#message_text').val(),
+            data: text,
             type: 'TEXT'
         };
 
-        stompClient.send("/app/chats/" + chatId, {}, JSON.stringify(message));
+        stompClient.send("/app/" + currentChatId, {}, JSON.stringify(message));
     }
 }
 
 function onMessageReceived(payload) {
     let message = JSON.parse(payload.body);
 
-    messageList.append("<br> --> " + message.senderId + " " + message.data);
+    displayMessage(message.data, message.senderId);
 }

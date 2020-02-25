@@ -7,7 +7,6 @@ spring:
   jpa:
     properties:
       hibernate.format_sql: true
-      hibernate.hbm2ddl.auto: update
     show-sql: true
   datasource:
     platform: postgres
@@ -21,4 +20,4 @@ spring:
 security:
   oauth2:
     resource:
-      userInfoUri: 192.168.1.70:5000/oauth/current
+      userInfoUri: http://192.168.1.70:5000/oauth/current

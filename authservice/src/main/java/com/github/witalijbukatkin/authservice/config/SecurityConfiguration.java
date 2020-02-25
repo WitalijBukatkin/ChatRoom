@@ -28,10 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-                .mvcMatchers("/login**", "/regist**")
-                .antMatchers("/css/*", "/js/*", "/webjars/**")
-                .antMatchers("/oauth/register");
+        web.ignoring().antMatchers("/oauth/register");
     }
 
     @Override

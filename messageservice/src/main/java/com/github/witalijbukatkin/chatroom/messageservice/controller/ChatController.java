@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -29,56 +30,56 @@ public class ChatController {
     }
 
     @GetMapping
-    public List<Chat> getAll(@RequestParam String userId) {
-        log.info("getAll for userId {}", userId);
-        return service.getAll(userId);
+    public List<Chat> getAll(Principal user) {
+        log.info("getAll for userName {}", user.getName());
+        return service.getAll(user.getName());
     }
 
     @GetMapping("/{id}")
-    public Chat get(@PathVariable long id, @RequestParam String userId) {
-        log.info("get {} for userId {}", id, userId);
-        return service.get(id, userId);
+    public Chat get(Principal user, @PathVariable long id) {
+        log.info("get {} for userId {}", id, user.getName());
+        return service.get(id, user.getName());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<Chat> create(@Valid @RequestBody Chat chat, @RequestParam String userId) {
-        log.info("create {} for userId {}", chat, userId);
+    public ResponseEntity<Chat> create(Principal user, @Valid @RequestBody Chat chat) {
+        log.info("create {} for userName {}", chat, user.getName());
 
-        Chat created = service.create(chat, userId);
+        Chat created = service.create(chat, user.getName());
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}?userId={userId}")
-                .buildAndExpand(created.getId(), userId).toUri();
+                .path(REST_URL + "/" + created.getId())
+                .build().toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable long id, @RequestParam String userId) {
-        log.info("delete {} for userId {}", id, userId);
-        service.delete(id, userId);
+    public void delete(Principal user, @PathVariable long id) {
+        log.info("delete {} for userName {}", id, user.getName());
+        service.delete(id, user.getName());
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Chat chat, @RequestParam String userId) {
-        log.info("update {} for userId {}", chat, userId);
-        service.update(chat, userId);
+    public void update(Principal user, @Valid @RequestBody Chat chat) {
+        log.info("update {} for userName {}", chat, user.getName());
+        service.update(chat, user.getName());
     }
 
     @GetMapping("/bindUser/{newUserId}/to/{chatId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void bindUser(@PathVariable long chatId, @RequestParam String userId, @PathVariable String newUserId) {
-        log.info("bindUser {} for userId {} to newUserId {}", chatId, userId, newUserId);
-        service.bindUser(chatId, userId, newUserId);
+    public void bindUser(Principal user, @PathVariable long chatId, @PathVariable String newUserId) {
+        log.info("bindUser {} for userName {} to newUserId {}", chatId, user.getName(), newUserId);
+        service.bindUser(chatId, user.getName(), newUserId);
     }
 
-    @GetMapping("/unbindUser/{userId}/from/{chatId}")
+    @GetMapping("/unbindUser/from/{chatId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void unbindUser(@PathVariable long chatId, @RequestParam String userId) {
-        log.info("unbindUser {} for userId {}", chatId, userId);
-        service.unbindUser(chatId, userId);
+    public void unbindUser(Principal user, @PathVariable long chatId) {
+        log.info("unbindUser {} for userName {}", chatId, user.getName());
+        service.unbindUser(chatId, user.getName());
     }
 }

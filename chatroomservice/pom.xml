@@ -19,12 +19,12 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator-core</artifactId>
-            <version>0.41</version>
+            <version>0.44</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>sockjs-client</artifactId>
-            <version>1.0.2</version>
+            <version>1.1.2</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -34,23 +34,17 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>3.3.7</version>
+            <version>4.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
-            <version>3.1.1-1</version>
+            <version>3.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>noty</artifactId>
             <version>3.1.4</version>
-        </dependency>
-
-        <!-- https://stackoverflow.com/questions/35090329/how-to-display-current-logged-in-users-information-in-all-templates-including-v-->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
 
         <dependency>
@@ -76,18 +70,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-reactor-netty</artifactId>
-        </dependency>
-
-        <!--https://github.com/spring-projects/spring-framework/issues/22080-->
-        <dependency>
-            <groupId>io.projectreactor.netty</groupId>
-            <artifactId>reactor-netty</artifactId>
-            <version>0.8.9.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-stomp</artifactId>
-            <version>5.15.11</version>
         </dependency>
 
         <dependency>

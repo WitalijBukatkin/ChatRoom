@@ -31,9 +31,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/app/chats")
-                .enableStompBrokerRelay("/topic/chats")
+        registry.setApplicationDestinationPrefixes("/app")
+                .enableStompBrokerRelay("/topic")
                 .setRelayHost("192.168.1.70")
+                .setRelayPort(61613)
                 .setClientLogin("chatroom").setSystemLogin("chatroom")
                 .setClientPasscode("chatroompassword").setSystemPasscode("chatroompassword");
     }

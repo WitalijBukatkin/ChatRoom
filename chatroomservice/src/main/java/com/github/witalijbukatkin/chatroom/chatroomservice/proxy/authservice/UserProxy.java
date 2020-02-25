@@ -16,4 +16,7 @@ public interface UserProxy {
                     @RequestParam String grant_type,
                     @RequestParam String username,
                     @RequestParam String password);
+
+    @GetMapping("/current")
+    String getCurrent(@RequestHeader("Authorization") String code);
 }

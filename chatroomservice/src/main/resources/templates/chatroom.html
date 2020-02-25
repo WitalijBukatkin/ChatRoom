@@ -1,32 +1,56 @@
 <html>
 <head>
-    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>Chatroom</title>
+
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/webjars/noty/3.1.4/lib/noty.css" rel="stylesheet"/>
-    <link href="/webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/css/main.css" rel="stylesheet">
+    <link href="/webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="/css/div.css" rel="stylesheet"/>
+    <link href="/css/messages.css" rel="stylesheet"/>
 
-    <script defer src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
     <script defer src="/webjars/noty/3.1.4/lib/noty.min.js"></script>
-
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-
-    <script src="/js/socket.js"></script>
-    <script src="/js/chats.js"></script>
 </head>
-<body>
-<h3>You is ${userId} </h3> <a href="/logout">Logout</a>
-<h4>Messages:</h4>
-<div id="messages">
-    <c:forEach items="${messages}" var="message">
-        <br/>--> ${message.senderId} ${message.data}
-    </c:forEach>
-</div>
-<br/>
 
-<form id="message" method="post">
-    <input id="message_text" type="text"/>
-    <a onclick="sendMessage()">Send</a>
-</form>
+<body class="text-center">
+<div class="main" style="width: 100%">
+    <div class="navbar">
+        <div class="addChat">
+            <input aria-label="add new chat" id="chatName" placeholder="username" type="text">
+            <button class="addChatButton btn btn-outline-success my-2 my-sm-0" onclick="newChat()">+</button>
+        </div>
+        <div class="message_title">
+            <h5>You: [[${userName}]]</h5>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="chats list-group"><!--ChatList--></div>
+
+        <div class="messages"><!--MessageList--></div>
+
+        <div class="input">
+            <div class="form_message">
+                <input aria-label="Type message..." class="form-control" id="message" placeholder="Type message"
+                       type="text">
+            </div>
+            <div class="form_send">
+                <button class="btn btn-outline-success my-2 my-sm-0" onclick="newMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let error = "[[${error}]]";
+    let userName = "[[${userName}]]";
+    let header = {"Authorization": "[[${token}]]"};
+</script>
+<script src="/js/chats.js"></script>
+<script src="/js/messages.js"></script>
+<script src="/js/socket.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>
