@@ -4,18 +4,20 @@ import com.github.witalijbukatkin.authservice.model.User;
 import com.github.witalijbukatkin.authservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class UserService implements org.springframework.security.core.userdetails.UserDetailsService {
-    private final PasswordEncoder passwordEncoder;
+@Service
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
-        this.passwordEncoder = passwordEncoder;
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -24,7 +26,7 @@ public class UserService implements org.springframework.security.core.userdetail
         return userRepository.getUserByUsername(username);
     }
 
-    public User register(User user){
+    public User register(User user) {
         User existing = userRepository.getUserByUsername(user.getUsername());
 
         if(existing!=null) {

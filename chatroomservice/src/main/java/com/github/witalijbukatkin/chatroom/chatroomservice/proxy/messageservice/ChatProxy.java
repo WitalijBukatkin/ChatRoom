@@ -1,6 +1,6 @@
 package com.github.witalijbukatkin.chatroom.chatroomservice.proxy.messageservice;
 
-import com.github.witalijbukatkin.chatroom.chatroomservice.model.Chat;
+import com.github.witalijbukatkin.chatroom.chatroomservice.to.Chat;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

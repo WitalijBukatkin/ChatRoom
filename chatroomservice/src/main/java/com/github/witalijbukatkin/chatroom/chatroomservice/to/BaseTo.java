@@ -1,14 +1,13 @@
-package com.github.witalijbukatkin.chatroom.chatroomservice.model;
+package com.github.witalijbukatkin.chatroom.chatroomservice.to;
 
-public abstract class BaseEntity {
-
+public abstract class BaseTo {
     private Long id;
 
-    public BaseEntity(Long id) {
+    public BaseTo(Long id) {
         this.id = id;
     }
 
-    public BaseEntity() {
+    public BaseTo() {
     }
 
     public Long getId() {

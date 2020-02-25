@@ -17,3 +17,8 @@ spring:
     password: ChatRoom_PASSWORD
     initialization-mode: always
     continue-on-error: true
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: 192.168.1.70:5000/oauth/current

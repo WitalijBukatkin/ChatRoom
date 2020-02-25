@@ -1,7 +1,7 @@
 package com.github.witalijbukatkin.chatroom.chatroomservice.web;
 
-import com.github.witalijbukatkin.chatroom.chatroomservice.model.Chat;
 import com.github.witalijbukatkin.chatroom.chatroomservice.proxy.messageservice.ChatProxy;
+import com.github.witalijbukatkin.chatroom.chatroomservice.to.Chat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +22,6 @@ public class ChatController {
 
     @GetMapping("/chats")
     public String chats(Map<String, Object> model, @RequestParam(required = false) String userId) {
-        if (userId == null) {
-            return "redirect:login";
-        }
-
         model.put("chats", proxy.getAll(userId));
         model.put("userId", userId);
         return "chats";

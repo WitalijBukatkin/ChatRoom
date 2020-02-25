@@ -3,13 +3,11 @@ package com.github.witalijbukatkin.authservice.controller;
 import com.github.witalijbukatkin.authservice.model.User;
 import com.github.witalijbukatkin.authservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
 @RestController
-@EnableResourceServer
 @RequestMapping("/oauth")
 public class UserController {
 	private final UserService userService;

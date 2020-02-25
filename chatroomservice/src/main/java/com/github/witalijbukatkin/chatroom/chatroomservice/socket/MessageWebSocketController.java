@@ -1,7 +1,7 @@
 package com.github.witalijbukatkin.chatroom.chatroomservice.socket;
 
-import com.github.witalijbukatkin.chatroom.chatroomservice.model.Message;
 import com.github.witalijbukatkin.chatroom.chatroomservice.proxy.messageservice.MessageProxy;
+import com.github.witalijbukatkin.chatroom.chatroomservice.to.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;

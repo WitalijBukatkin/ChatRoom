@@ -1,4 +1,4 @@
-package com.github.witalijbukatkin.chatroom.chatroomservice.socket.config;
+package com.github.witalijbukatkin.chatroom.chatroomservice.config;
 
 import com.github.witalijbukatkin.chatroom.chatroomservice.socket.interceptor.TopicSubscriptionInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app/chats")
                 .enableStompBrokerRelay("/topic/chats")
-                .setRelayHost("localhost")
+                .setRelayHost("192.168.1.70")
                 .setClientLogin("chatroom").setSystemLogin("chatroom")
                 .setClientPasscode("chatroompassword").setSystemPasscode("chatroompassword");
     }

@@ -1,9 +1,8 @@
-package com.github.witalijbukatkin.chatroom.chatroomservice.model;
+package com.github.witalijbukatkin.chatroom.chatroomservice.to;
 
 import java.util.List;
-import java.util.Objects;
 
-public class Chat extends BaseEntity {
+public class Chat extends BaseTo {
     private String name;
 
     private List<String> users;
@@ -35,19 +34,5 @@ public class Chat extends BaseEntity {
 
     public void setUsers(List<String> users) {
         this.users = users;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Chat chat = (Chat) o;
-        return Objects.equals(name, chat.name) &&
-                Objects.equals(users, chat.users);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, users);
     }
 }

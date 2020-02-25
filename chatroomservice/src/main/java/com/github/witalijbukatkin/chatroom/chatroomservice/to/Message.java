@@ -1,6 +1,6 @@
-package com.github.witalijbukatkin.chatroom.chatroomservice.model;
+package com.github.witalijbukatkin.chatroom.chatroomservice.to;
 
-public class Message extends BaseEntity {
+public class Message extends BaseTo {
     private Chat chat;
 
     private String senderId;

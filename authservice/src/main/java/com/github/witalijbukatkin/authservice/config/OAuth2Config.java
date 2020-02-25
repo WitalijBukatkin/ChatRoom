@@ -1,7 +1,6 @@
 package com.github.witalijbukatkin.authservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,24 +19,21 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
-	private final AuthenticationManager authenticationManager;
-	private final DataSource dataSource;
+    @Autowired
+    private DataSource dataSource;
 
-	@Autowired
-	public OAuth2Config(@Qualifier("authenticationManagerBean") AuthenticationManager authenticationManager, DataSource dataSource) {
-		this.authenticationManager = authenticationManager;
-		this.dataSource = dataSource;
-	}
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-	@Bean
-	public PasswordEncoder encoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public TokenStore tokenStore() {
-		return new JdbcTokenStore(dataSource);
-	}
+    @Bean
+    public TokenStore tokenStore() {
+        return new JdbcTokenStore(dataSource);
+    }
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
