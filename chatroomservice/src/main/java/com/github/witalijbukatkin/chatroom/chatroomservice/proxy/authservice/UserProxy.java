@@ -4,7 +4,7 @@ import com.github.witalijbukatkin.chatroom.chatroomservice.to.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "authservice", url = "192.168.1.70:5000")
+@FeignClient(name = "authservice", url = "${AUTHSERVICE_URL}")
 @RequestMapping("/oauth")
 public interface UserProxy {
 

@@ -1,0 +1,68 @@
+version: '3.1'
+services:
+  rabbitmq:
+    build: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+      - 61613:61613
+    environment:
+      RABBITMQ_DEFAULT_USER: chatroom
+      RABBITMQ_DEFAULT_PASS: chatroompassword
+
+  db:
+    build: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ChatRoom_PASSWORD
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8180:8080
+
+  authservice:
+    build: authservice
+    restart: always
+    ports:
+      - 5000:5000
+    environment:
+      POSTGRES_URL: postgresql://db
+      POSTGRES_PASSWORD: ChatRoom_PASSWORD
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  messageservice:
+    build: messageservice
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      POSTGRES_URL: postgresql://db
+      POSTGRES_PASSWORD: ChatRoom_PASSWORD
+      AUTHSERVICE_URL: http://authservice:5000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  chatroomservice:
+    build: chatroomservice
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      AUTHSERVICE_URL: authservice:5000
+      MESSAGESERVICE_URL: messageservice:8081
+      RABBITMQ_USER: chatroom
+      RABBITMQ_PASSWORD: chatroompassword
+      RABBITMQ_URL: rabbitmq
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"

@@ -7,17 +7,18 @@ spring:
   jpa:
     properties:
       hibernate.format_sql: true
+      hibernate.hbm2ddl.auto: update
     show-sql: true
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.1.70/messageservice
+    url: jdbc:${POSTGRES_URL}/messageservice
     username: postgres
-    password: ChatRoom_PASSWORD
+    password: ${POSTGRES_PASSWORD}
     initialization-mode: always
     continue-on-error: true
 
 security:
   oauth2:
     resource:
-      userInfoUri: http://192.168.1.70:5000/oauth/current
+      userInfoUri: ${AUTHSERVICE_URL}/oauth/current

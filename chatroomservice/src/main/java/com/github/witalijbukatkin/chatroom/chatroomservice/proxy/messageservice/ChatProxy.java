@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "messageservice-chatproxy", url = "192.168.1.70:8081")
+@FeignClient(name = "messageservice-chatproxy", url = "${MESSAGESERVICE_URL}")
 @RequestMapping("/rest/chats")
 public interface ChatProxy {
     @GetMapping

@@ -17,6 +17,10 @@ function chats() {
                     "                    </div>\n" +
                     "            </a>");
             });
+
+            if (chatList.text().length === null) {
+                chatList.append("<h4>Type username and confirm, or refresh page</h4>");
+            }
         }
     });
 }

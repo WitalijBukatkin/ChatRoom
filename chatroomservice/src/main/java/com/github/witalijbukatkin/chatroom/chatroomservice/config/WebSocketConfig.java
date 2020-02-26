@@ -33,9 +33,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app")
                 .enableStompBrokerRelay("/topic")
-                .setRelayHost("192.168.1.70")
+                .setRelayHost(System.getenv("RABBITMQ_URL"))
                 .setRelayPort(61613)
-                .setClientLogin("chatroom").setSystemLogin("chatroom")
-                .setClientPasscode("chatroompassword").setSystemPasscode("chatroompassword");
+
+                .setClientLogin(System.getenv("RABBITMQ_USER"))
+                .setSystemLogin(System.getenv("RABBITMQ_USER"))
+
+                .setClientPasscode(System.getenv("RABBITMQ_PASSWORD"))
+                .setSystemPasscode(System.getenv("RABBITMQ_PASSWORD"));
     }
 }
