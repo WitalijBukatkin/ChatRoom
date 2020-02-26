@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
@@ -70,5 +71,29 @@ public class Message extends BaseEntity {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        return Objects.equals(senderId, message.senderId) &&
+                type == message.type &&
+                Objects.equals(data, message.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(senderId, type, data);
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                ", senderId='" + senderId + '\'' +
+                ", type=" + type +
+                ", data='" + data + '\'' +
+                '}';
     }
 }

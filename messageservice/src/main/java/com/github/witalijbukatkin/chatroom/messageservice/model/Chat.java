@@ -57,4 +57,12 @@ public class Chat extends BaseEntity{
     public int hashCode() {
         return Objects.hash(name, users);
     }
+
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "name='" + name + '\'' +
+                ", users=" + users +
+                '}';
+    }
 }

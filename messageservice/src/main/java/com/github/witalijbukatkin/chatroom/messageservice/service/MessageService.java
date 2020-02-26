@@ -4,6 +4,7 @@ import com.github.witalijbukatkin.chatroom.messageservice.exception.NotFoundExce
 import com.github.witalijbukatkin.chatroom.messageservice.model.Message;
 import com.github.witalijbukatkin.chatroom.messageservice.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -15,7 +16,7 @@ public class MessageService {
     private final MessageRepository repository;
 
     @Autowired
-    public MessageService(MessageRepository repository) {
+    public MessageService(@Qualifier("dataJpaMessageRepositoryImpl") MessageRepository repository) {
         this.repository = repository;
     }
 

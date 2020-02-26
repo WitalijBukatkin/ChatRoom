@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+
+import static com.github.witalijbukatkin.chatroom.messageservice.repository.TestChatData.CHAT1;
+import static com.github.witalijbukatkin.chatroom.messageservice.repository.TestChatData.CHAT2;
 
 @Repository
 public class InMemoryChatRepositoryImpl implements ChatRepository {
@@ -18,9 +20,14 @@ public class InMemoryChatRepositoryImpl implements ChatRepository {
 
     private final Map<Long, Chat> chats = new ConcurrentHashMap<>();
 
+    public InMemoryChatRepositoryImpl() {
+        chats.put(CHAT1.getId(), CHAT1);
+        chats.put(CHAT2.getId(), CHAT2);
+    }
+
     @Override
     public Chat save(Chat chat, String userId) {
-        if (!isExistUserInChat(chat.getId(), userId)) {
+        if (chat.getId() != null && !isExistUserInChat(chat.getId(), userId)) {
             return null;
         }
 
@@ -48,7 +55,7 @@ public class InMemoryChatRepositoryImpl implements ChatRepository {
     public Chat get(long id, String userId) {
         Chat chat = chats.get(id);
 
-        if (!isExistUserInChat(chat.getId(), userId)) {
+        if (chat == null || !isExistUserInChat(chat.getId(), userId)) {
             return null;
         }
 
