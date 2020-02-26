@@ -1,6 +1,6 @@
-###Chatroom as a messager, allowing text messaging to peaple within the network 
+### Chatroom as a messager, allowing text messaging to peaple within the network 
 
-###Uses
+### Uses
 - Docker
 - Java 11
 - SpringBoot 2
