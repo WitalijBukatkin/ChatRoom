@@ -73,6 +73,16 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
+      <plugin>
+        <groupId>com.dkanejs.maven.plugins</groupId>
+        <artifactId>docker-compose-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <composeFile>${project.basedir}/docker-compose.yml</composeFile>
+          <envFile>${project.basedir}/.env</envFile>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>

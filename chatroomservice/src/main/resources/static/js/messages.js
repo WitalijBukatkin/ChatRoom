@@ -3,14 +3,22 @@ let currentChatId;
 function messages(chatId) {
     let messageList = $('.messages');
 
+    $("#chats").each(function() {
+        $(this).removeClass("active");
+    });
+
     $('#chat' + chatId)
         .addClass("active");
 
     messageList.append("<h4>Loading...</h4>");
 
+    if(chatId !== null){
+        unsubscribe(chatId);
+    }
+
     currentChatId = chatId;
 
-    connect();
+    subscribe();
 
     $.ajax({
         type: 'get',
@@ -31,8 +39,8 @@ function newMessage() {
     let data = $('#message').val();
 
     if (data !== null || data !== "") {
-        sendMessage(currentChatId, data);
         $('#message').val("");
+        sendMessage(currentChatId, data);
     }
 }
 

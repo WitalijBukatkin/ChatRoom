@@ -11,8 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-import static com.github.witalijbukatkin.chatroom.messageservice.repository.TestChatData.CHAT1;
-import static com.github.witalijbukatkin.chatroom.messageservice.repository.TestChatData.CHAT2;
+import static com.github.witalijbukatkin.chatroom.messageservice.TestData.CHAT1;
+import static com.github.witalijbukatkin.chatroom.messageservice.TestData.CHAT2;
 
 @Repository
 public class InMemoryChatRepositoryImpl implements ChatRepository {

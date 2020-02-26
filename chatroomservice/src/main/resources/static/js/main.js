@@ -3,7 +3,8 @@ $(function () {
         failNoty(error);
     }
 
-    chats(); //get chats
+    connect();
+    getChats();
 });
 
 let failedNote;

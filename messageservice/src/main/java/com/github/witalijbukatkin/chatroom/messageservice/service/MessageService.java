@@ -73,6 +73,13 @@ public class MessageService {
 
     public List<Message> getAllOfChat(long chatId, String userId){
         Assert.notNull(userId, "userId must not be null");
-        return repository.getAllOfChat(chatId, userId);
+
+        List<Message> messages = repository.getAllOfChat(chatId, userId);
+
+        if(messages == null){
+            throw new NotFoundException();
+        }
+
+        return messages;
     }
 }

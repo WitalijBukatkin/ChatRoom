@@ -78,8 +78,8 @@ public class ChatController {
 
     @GetMapping("/unbindUser/from/{chatId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void unbindUser(Principal user, @PathVariable long chatId) {
+    public void unbindUser(Principal user, @PathVariable long chatId, @PathVariable String unbindUserId) {
         log.info("unbindUser {} for userName {}", chatId, user.getName());
-        service.unbindUser(chatId, user.getName());
+        service.unbindUser(chatId, unbindUserId, user.getName());
     }
 }

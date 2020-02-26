@@ -21,6 +21,6 @@ public interface CrudMessageRepository extends JpaRepository<Message, Long> {
     @Query("from Message where chat in (from Chat where :userId in elements(users))")
     List<Message> findAll(String userId);
 
-    @Query("from Message where chat in (from Chat where id = :chatId and :userId in elements(users))")
-    List<Message> findAllOfChat(long chatId, String userId);
+    @Query("from Message where chat.id = :chatId")
+    List<Message> findAllOfChat(long chatId);
 }

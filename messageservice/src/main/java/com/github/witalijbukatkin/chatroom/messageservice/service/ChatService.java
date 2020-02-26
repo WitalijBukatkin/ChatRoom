@@ -73,14 +73,17 @@ public class ChatService {
 
         chat.getUsers().add(newUserId);
 
-        repository.save(chat, userId);
+        if(repository.save(chat, userId) == null){
+            throw new NotFoundException();
+        }
     }
 
-    public void unbindUser(long id, String userId){
+    public void unbindUser(long id, String userId, String unbindUserId){
         Assert.notNull(userId, "userId must not be null");
+        Assert.notNull(unbindUserId, "unbindUserId must not be null");
         Chat chat = get(id, userId);
 
-        if(chat.getUsers().remove(userId)){
+        if(!chat.getUsers().remove(unbindUserId)){
             throw new NotFoundException();
         }
     }

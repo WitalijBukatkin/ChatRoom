@@ -57,6 +57,10 @@ public class DataJpaMessageRepositoryImpl implements MessageRepository {
 
     @Override
     public List<Message> getAllOfChat(long chatId, String userId) {
-        return messageRepository.findAllOfChat(chatId, userId);
+        if(!chatRepository.isExistUserInChat(chatId, userId)) {
+            return null;
+        }
+
+        return messageRepository.findAllOfChat(chatId);
     }
 }

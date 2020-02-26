@@ -1,6 +1,6 @@
-###Chatroom as a messager, allowing text messaging to peaple within the network 
+### Chatroom as a messager, allowing text messaging to peaple within the network 
 
-###Uses
+### Uses
 - Docker
 - Java 11
 - SpringBoot 2
@@ -21,7 +21,7 @@
 
 #### You can start it your computer with linux
 
-1. Requirement packages:
+Requirement packages:
  - docker and docker-compose
 	- You can install it for debian-based using:
 	```sudo apt-get update && sudo apt install docker docker-compose```
@@ -37,8 +37,8 @@
 git clone https://github.com/WitalijBukatkin/ChatRoom
 unzip ChatRoom.zip
 cd ChatRoom
-mvn packages
-sudo docker-compose up
+mvn package
+sudo mvn docker-compose:up
 ```
 3. Find out you local ip with `hostname -I`
 and type this in you Web Browser as {ip}:8080 for example: 192.168.1.70:8080

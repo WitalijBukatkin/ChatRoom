@@ -36,5 +36,5 @@ public interface ChatProxy {
 
     @GetMapping("/unbindUser/from/{chatId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void unbindUser(@PathVariable long chatId, @RequestHeader("Authorization") String userId);
+    void unbindUser(@PathVariable long chatId, @PathVariable String unbindUserId, @RequestHeader("Authorization") String userId);
 }

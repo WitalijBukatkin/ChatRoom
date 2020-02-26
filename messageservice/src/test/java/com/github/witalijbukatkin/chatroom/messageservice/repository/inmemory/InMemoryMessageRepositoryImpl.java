@@ -12,6 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+import static com.github.witalijbukatkin.chatroom.messageservice.TestData.MESSAGE1;
+import static com.github.witalijbukatkin.chatroom.messageservice.TestData.MESSAGE2;
+
 @Repository
 public class InMemoryMessageRepositoryImpl implements MessageRepository {
     private static AtomicLong counter = new AtomicLong(100);
@@ -23,6 +26,9 @@ public class InMemoryMessageRepositoryImpl implements MessageRepository {
     @Autowired
     public InMemoryMessageRepositoryImpl(InMemoryChatRepositoryImpl chatRepository) {
         this.chatRepository = chatRepository;
+
+        messages.put(MESSAGE1.getId(), MESSAGE1);
+        messages.put(MESSAGE2.getId(), MESSAGE2);
     }
 
     @Override
@@ -46,7 +52,7 @@ public class InMemoryMessageRepositoryImpl implements MessageRepository {
     public boolean delete(long id, long chatId, String userId) {
         Message message = get(id, chatId, userId);
 
-        if (message == null && !message.getSenderId().equals(userId)) {
+        if (message == null || !message.getSenderId().equals(userId)) {
             return false;
         }
 
@@ -57,7 +63,7 @@ public class InMemoryMessageRepositoryImpl implements MessageRepository {
     public Message get(long id, long chatId, String userId) {
         Message message = messages.get(id);
 
-        if (message == null) {
+        if (message == null || !chatRepository.isExistUserInChat(chatId, userId)) {
             return null;
         }
 

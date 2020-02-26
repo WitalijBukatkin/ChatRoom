@@ -1,7 +1,7 @@
-function chats() {
+function getChats() {
     let chatList = $('.chats');
 
-    chatList.append("<h4>Loading...</h4>");
+    chatList.append("<h5>Loading...</h5>");
 
     $.ajax({
         type: 'get',
@@ -19,7 +19,10 @@ function chats() {
             });
 
             if (chatList.text().length === null) {
-                chatList.append("<h4>Type username and confirm, or refresh page</h4>");
+                chatList.append("<h5>Type username and confirm, or refresh page</h5>");
+            }
+            else {
+                messages(chats[0].id);
             }
         }
     });
@@ -41,7 +44,7 @@ function newChat() {
             withUserId: withUserId
         },
         success: function (chats) {
-            chats();
+            getChats();
             $('#chatName').val("");
         }
     });

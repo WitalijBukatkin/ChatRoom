@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.witalijbukatkin.chatroom.messageservice.repository.TestChatData.*;
+import static com.github.witalijbukatkin.chatroom.messageservice.TestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = InMemoryChatRepositoryImpl.class)
@@ -101,12 +101,35 @@ class InMemoryChatRepositoryTest {
 
     @Test
     void getAll() {
-        List<Chat> expected = Arrays.asList(CHAT1, CHAT2);
+        List<Chat> expected = List.of(CHAT1, CHAT2);
         assertIterableEquals(expected, service.getAll(USER1));
     }
 
     @Test
     void getAllWithNull() {
         assertThrows(IllegalArgumentException.class, () -> service.getAll(null));
+    }
+
+    @Test
+    void bindUser(){
+        assertDoesNotThrow(() -> service.bindUser(CHAT1.getId(), USER1, USER3));
+
+        Chat chat = service.get(CHAT1.getId(), USER1);
+
+        List<String> expected = List.of(USER1, USER2, USER3);
+        assertIterableEquals(expected, chat.getUsers());
+
+        assertDoesNotThrow(() -> service.unbindUser(CHAT1.getId(), USER1, USER3));
+    }
+
+    @Test
+    void unbindUser(){
+        assertDoesNotThrow(() -> service.bindUser(CHAT1.getId(), USER1, USER3));
+        assertDoesNotThrow(() -> service.unbindUser(CHAT1.getId(), USER1, USER3));
+
+        Chat chat = service.get(CHAT1.getId(), USER1);
+
+        List<String> expected = List.of(USER1, USER2);
+        assertIterableEquals(expected, chat.getUsers());
     }
 }

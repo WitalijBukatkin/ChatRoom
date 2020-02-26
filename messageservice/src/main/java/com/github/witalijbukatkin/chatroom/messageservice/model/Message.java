@@ -78,19 +78,21 @@ public class Message extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return Objects.equals(senderId, message.senderId) &&
+        return Objects.equals(chat, message.chat) &&
+                Objects.equals(senderId, message.senderId) &&
                 type == message.type &&
                 Objects.equals(data, message.data);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(senderId, type, data);
+        return Objects.hash(chat, senderId, type, data);
     }
 
     @Override
     public String toString() {
         return "Message{" +
+                "chat=" + chat +
                 ", senderId='" + senderId + '\'' +
                 ", type=" + type +
                 ", data='" + data + '\'' +

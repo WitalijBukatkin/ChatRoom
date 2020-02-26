@@ -3,14 +3,18 @@ var stompClient = null;
 
 function connect() {
     let token = header.Authorization.split(' ')[1];
-
     let socket = new SockJS('/websocket/?access_token=' + token);
 
     stompClient = Stomp.over(socket);
+    stompClient.connect();
+}
 
-    stompClient.connect({}, function () {
-        stompClient.subscribe('/topic/' + currentChatId, onMessageReceived);
-    });
+function subscribe(){
+    stompClient.subscribe('/topic/' + currentChatId, onMessageReceived);
+}
+
+function unsubscribe(chatId){
+    stompClient.unsubscribe('/topic/' + chatId);
 }
 
 function sendMessage(chatId, text) {
