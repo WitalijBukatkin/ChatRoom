@@ -1,0 +1,52 @@
+.message {
+    float: left;
+    width: 100%;
+}
+
+.messageBlock {
+    max-width: 45%;
+    border-width: 1px;
+    border-radius: 10px;
+    background-color: #337ab7;
+    padding: 15px;
+    color: #fff;
+}
+
+.side_right {
+    float: right;
+}
+
+.side_left {
+    float: left;
+}
+
+.senderName_right {
+    float: right;
+    font-size: x-small;
+}
+
+.senderName_left {
+    float: left;
+    font-size: x-small;
+}
+
+.newMessage {
+    float: left;
+    width: 66%;
+    height: 5%;
+
+    padding: 30px 20px 30px;
+}
+
+@media screen and (max-width: 1000px), screen and (max-height: 600px) {
+    .newMessage {
+        width: 100%;
+        height: 5%;
+
+        padding-top: 10px;
+    }
+
+    #messageData {
+        width: 70%;
+    }
+}

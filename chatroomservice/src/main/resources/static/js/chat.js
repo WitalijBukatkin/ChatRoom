@@ -1,7 +1,12 @@
-function getChats() {
-    let chatList = $('.chats');
+let chatList = $('.chats');
+let chatData = $('#chatName');
 
+function getChats() {
     chatList.append("<h5>Loading...</h5>");
+
+    if (isMobile) {
+        showMenu();
+    }
 
     $.ajax({
         type: 'get',
@@ -18,10 +23,9 @@ function getChats() {
                     "            </a>");
             });
 
-            if (chatList.text().length === null) {
-                chatList.append("<h5>Type username and confirm, or refresh page</h5>");
-            }
-            else {
+            if (chats.length === 0) {
+                messageList.append("<h5>Type username and confirm, or refresh page</h5>");
+            } else {
                 messages(chats[0].id);
             }
         }
@@ -29,7 +33,7 @@ function getChats() {
 }
 
 function newChat() {
-    let withUserId = $('#chatName').val().toLowerCase();
+    let withUserId = chatData.val().toLowerCase();
 
     if (withUserId === null || withUserId === '') {
         return;
@@ -43,9 +47,13 @@ function newChat() {
         data: {
             withUserId: withUserId
         },
-        success: function (chats) {
+        success: async function () {
+            chatData.val("");
+
+            //sleep 5s
+            await new Promise(resolve => setTimeout(resolve, 5000));
+
             getChats();
-            $('#chatName').val("");
         }
     });
 }

@@ -57,7 +57,7 @@ public class TopicSubscriptionInterceptor implements ChannelInterceptor {
                     attributes.put("user", service.getFromToken(btoken));
                     attributes.put("btoken", btoken);
 
-                    logger.info("SUBSCRIBE TO {} WITH USERNAME {}", headerAccessor.getDestination(), token);
+                    logger.info("SUBSCRIBE TO {} WITH TOKEN {}", headerAccessor.getDestination(), token);
 
                     return message;
                 } catch (IOException e) {

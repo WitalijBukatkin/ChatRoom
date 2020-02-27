@@ -1,22 +1,26 @@
 let currentChatId = null;
 
-function messages(chatId) {
-    let messageList = $('.messages');
+let messageList = $(".messages");
+let messageData = $("#messageData");
 
-    $("#chats").each(function () {
-        $(this).removeClass("active");
-    });
+function messages(chatId) {
+    messageList.append("<h5>Loading...</h5>");
+
+    if (currentChatId != null) {
+        $(".chats a").removeClass("active");
+        unsubscribe(currentChatId);
+    }
 
     $('#chat' + chatId)
         .addClass("active");
 
-    messageList.append("<h4>Loading...</h4>");
+    currentChatId = chatId;
 
-    if (currentChatId != null) {
-        unsubscribe(currentChatId);
+    if (isMobile) {
+        hideMenu();
     }
 
-    currentChatId = chatId;
+    $('#chatDescription').text($('#chat' + currentChatId + " h5").text());
 
     $.ajax({
         type: 'get',
@@ -36,10 +40,10 @@ function messages(chatId) {
 }
 
 function newMessage() {
-    let data = $('#message').val();
+    let data = messageData.val();
 
     if (data !== null || data !== "") {
-        $('#message').val("");
+        messageData.val("");
         sendMessage(data);
     }
 }
@@ -55,7 +59,7 @@ function displayMessage(text, senderName) {
         sender = senderName;
     }
 
-    $('.messages').append("<div>\n" +
+    messageList.append("<div>\n" +
         "                <div class=\"message\">\n" +
         "                    <div class=\"messageBlock side_" + side + "\">\n" +
         "                        <p>" + text + "</p>\n" +

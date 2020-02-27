@@ -24,15 +24,15 @@ public class UserService implements UserDetailsService {
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         Assert.notNull(username, "userName must not be null");
-        return userRepository.getUserByUsername(username);
+        return userRepository.getUserByUsername(username.toLowerCase());
     }
 
     public User register(User user) {
         Assert.notNull(user, "user must not be null");
-        User existing = userRepository.getUserByUsername(user.getUsername());
+        User existing = userRepository.getUserByUsername(user.getUsername().toLowerCase());
 
         if(existing!=null) {
-            throw new IllegalArgumentException("user already exists: " + existing.getUsername());
+            throw new IllegalArgumentException("user already exists: " + existing.getUsername().toLowerCase());
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));

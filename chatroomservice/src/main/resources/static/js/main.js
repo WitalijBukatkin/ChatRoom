@@ -3,7 +3,9 @@ $(function () {
         failNoty(error);
     }
 
-    getChats();
+    if (getChats !== undefined) {
+        getChats();
+    }
 });
 
 let failedNote;

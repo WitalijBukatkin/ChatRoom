@@ -2,11 +2,14 @@
 <head>
     <title>Chatroom</title>
 
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/webjars/noty/3.1.4/lib/noty.css" rel="stylesheet"/>
     <link href="/webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="/css/div.css" rel="stylesheet"/>
-    <link href="/css/messages.css" rel="stylesheet"/>
+    <link href="/css/container.css" rel="stylesheet"/>
+    <link href="/css/message.css" rel="stylesheet"/>
+    <link href="/css/chat.css" rel="stylesheet"/>
 
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script defer src="/webjars/noty/3.1.4/lib/noty.min.js"></script>
@@ -15,32 +18,25 @@
 </head>
 
 <body class="text-center">
-<div class="main" style="width: 100%">
+<div class="container">
     <div class="navbar">
-        <div class="addChat">
-            <input aria-label="add new chat" id="chatName" placeholder="username" type="text">
-            <button class="addChatButton btn btn-outline-success my-2 my-sm-0" onclick="newChat()">+</button>
+        <div class="menu">
+            <a onclick="showMenu()"><i class="fa fa-bars"></i></a>
         </div>
-        <div class="message_title">
-            <h5>You: [[${userName}]]</h5>
+        <div class="newChat">
+            <input class="form-control" id="chatName" type="text">
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="newChat()">+</button>
+        </div>
+        <div class="chatTitle">
+            <span id="chatDescription"></span>
         </div>
     </div>
-
-    <div class="container">
-
-        <div class="chats list-group"></div>
-
-        <div class="messages"></div>
-
-        <div class="input">
-            <div class="form_message">
-                <input aria-label="Type message..." class="form-control" id="message" placeholder="Type message"
-                       type="text">
-            </div>
-            <div class="form_send">
-                <button class="btn btn-outline-success my-2 my-sm-0" onclick="newMessage()">Send</button>
-            </div>
-        </div>
+    <div class="chats list-group"></div>
+    <div class="messages"></div>
+    <div class="newMessage" onclick="newMessage()">
+        <input aria-label="Type message..." class="form-control" id="messageData" placeholder="Type message"
+               type="text">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Send</button>
     </div>
 </div>
 <script>
@@ -48,9 +44,10 @@
     let userName = "[[${userName}]]";
     let header = {"Authorization": "[[${token}]]"};
 </script>
-<script src="/js/chats.js"></script>
+<script src="/js/chat.js"></script>
 <script src="/js/messages.js"></script>
 <script src="/js/socket.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/menu.js"></script>
 </body>
 </html>

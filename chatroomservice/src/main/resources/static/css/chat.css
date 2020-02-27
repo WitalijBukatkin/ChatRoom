@@ -1,0 +1,17 @@
+.newChat {
+    float: left;
+    width: 34%;
+}
+
+.chatTitle {
+    float: left;
+    width: 65%;
+    max-width: 65%;
+}
+
+@media screen and (max-width: 1000px), screen and (max-height: 600px) {
+    .newChat {
+        float: left;
+        width: 100%;
+    }
+}
