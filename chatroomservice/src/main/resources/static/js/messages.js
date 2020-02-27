@@ -1,9 +1,9 @@
-let currentChatId;
+let currentChatId = null;
 
 function messages(chatId) {
     let messageList = $('.messages');
 
-    $("#chats").each(function() {
+    $("#chats").each(function () {
         $(this).removeClass("active");
     });
 
@@ -12,13 +12,11 @@ function messages(chatId) {
 
     messageList.append("<h4>Loading...</h4>");
 
-    if(chatId !== null){
-        unsubscribe(chatId);
+    if (currentChatId != null) {
+        unsubscribe(currentChatId);
     }
 
     currentChatId = chatId;
-
-    subscribe();
 
     $.ajax({
         type: 'get',
@@ -33,6 +31,8 @@ function messages(chatId) {
             });
         }
     });
+
+    connect();
 }
 
 function newMessage() {
@@ -40,7 +40,7 @@ function newMessage() {
 
     if (data !== null || data !== "") {
         $('#message').val("");
-        sendMessage(currentChatId, data);
+        sendMessage(data);
     }
 }
 

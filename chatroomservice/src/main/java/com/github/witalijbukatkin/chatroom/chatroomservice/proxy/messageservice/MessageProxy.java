@@ -20,7 +20,7 @@ public interface MessageProxy {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    ResponseEntity<Message> create(@RequestBody Message message, @PathVariable long chatId, @RequestHeader("Authorization") String userId);
+    ResponseEntity<Message> create(@PathVariable long chatId, @RequestBody Message message, @RequestHeader("Authorization") String userId);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

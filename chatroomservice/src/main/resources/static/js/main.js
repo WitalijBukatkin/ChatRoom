@@ -3,7 +3,6 @@ $(function () {
         failNoty(error);
     }
 
-    connect();
     getChats();
 });
 

@@ -24,9 +24,14 @@ public class User implements UserDetails {
 
     private boolean enabled = true;
 
-    public User(String username, String password) {
+    public User(Long id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    public User(String username, String password) {
+        this(null, username, password);
     }
 
     public User() {
@@ -96,5 +101,10 @@ public class User implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return isEnabled();
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return id == null;
     }
 }

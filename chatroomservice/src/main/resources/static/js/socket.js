@@ -1,26 +1,24 @@
 'use strict';
-var stompClient = null;
+let stompClient;
 
 function connect() {
     let token = header.Authorization.split(' ')[1];
     let socket = new SockJS('/websocket/?access_token=' + token);
 
     stompClient = Stomp.over(socket);
-    stompClient.connect();
-}
-
-function subscribe(){
-    stompClient.subscribe('/topic/' + currentChatId, onMessageReceived);
+    stompClient.connect({}, function () {
+        stompClient.subscribe('/topic/' + currentChatId, onMessageReceived);
+    });
 }
 
 function unsubscribe(chatId){
     stompClient.unsubscribe('/topic/' + chatId);
 }
 
-function sendMessage(chatId, text) {
+function sendMessage(text) {
     if (stompClient) {
         let message = {
-            senderId: name,
+            senderId: userName,
             data: text,
             type: 'TEXT'
         };

@@ -3,11 +3,11 @@ package com.github.witalijbukatkin.authservice.service;
 import com.github.witalijbukatkin.authservice.model.User;
 import com.github.witalijbukatkin.authservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -22,11 +22,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        Assert.notNull(username, "userName must not be null");
         return userRepository.getUserByUsername(username);
     }
 
     public User register(User user) {
+        Assert.notNull(user, "user must not be null");
         User existing = userRepository.getUserByUsername(user.getUsername());
 
         if(existing!=null) {

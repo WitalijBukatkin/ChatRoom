@@ -38,7 +38,7 @@ public class MessageWebSocketController {
 
         message.setSenderId(user.getUsername());
 
-        proxy.create(message, chatId, btoken);
+        proxy.create(chatId, message, btoken);
 
         template.convertAndSend("/topic/" + chatId, message);
     }

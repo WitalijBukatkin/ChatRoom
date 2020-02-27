@@ -4,7 +4,7 @@ import com.github.witalijbukatkin.authservice.model.User;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Transactional(readOnly = true)
 public interface UserRepository extends Repository<User, Long> {
     User getUserByUsername(String name);
 

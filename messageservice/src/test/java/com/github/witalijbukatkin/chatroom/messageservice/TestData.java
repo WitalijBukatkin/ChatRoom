@@ -4,13 +4,11 @@ import com.github.witalijbukatkin.chatroom.messageservice.model.Chat;
 import com.github.witalijbukatkin.chatroom.messageservice.model.Message;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.github.witalijbukatkin.chatroom.messageservice.model.Type.TEXT;
 
 public class TestData {
-
     public static final String USER1 = "user1";
     public static final String USER2 = "user2";
     public static final String USER3 = "user3";

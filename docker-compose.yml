@@ -57,7 +57,7 @@ services:
     ports:
       - 8080:8080
     environment:
-      AUTHSERVICE_URL: authservice:5000
+      AUTHSERVICE_URL: http://authservice:5000
       MESSAGESERVICE_URL: messageservice:8081
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASSWORD: ${RABBITMQ_PASS}
