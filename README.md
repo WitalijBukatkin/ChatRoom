@@ -1,3 +1,6 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a2310159d5a64dffa44e1d669ade18a3)](https://www.codacy.com/manual/WitalijBukatkin/ChatRoom?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WitalijBukatkin/ChatRoom&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/WitalijBukatkin/ChatRoom.svg?branch=master)](https://travis-ci.org/WitalijBukatkin/ChatRoom)
+
 ### Chatroom as a messager, allowing text messaging to peaple within the network 
 
 ### Uses
