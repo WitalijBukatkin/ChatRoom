@@ -35,6 +35,7 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("user already exists: " + existing.getUsername().toLowerCase());
         }
 
+        user.setUsername(user.getUsername().toLowerCase());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
