@@ -31,6 +31,12 @@ class UserServiceTest {
     }
 
     @Test
+    void loadUserByUsernameWithUpperCase() {
+        User actual = service.loadUserByUsername(USER1.getUsername().toUpperCase());
+        assertEquals(USER1, actual);
+    }
+
+    @Test
     void register() {
         User expected = service.register(
                 new User("user3", "password"));
@@ -40,6 +46,16 @@ class UserServiceTest {
         assertEquals(expected, actual);
 
         //TODO: Does not delete!
+    }
+
+    @Test
+    void registerWithUpperCaseName() {
+        User expected = service.register(
+                new User("user4".toUpperCase(), "password"));
+        assertNotNull(expected);
+
+        User actual = service.loadUserByUsername(expected.getUsername().toLowerCase());
+        assertEquals(expected, actual);
     }
 
     @Test

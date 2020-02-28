@@ -37,8 +37,15 @@ class InMemoryMessageRepositoryTest {
     }
 
     @Test
-    void createWithUserFalse(){
+    void createWithUserFalse() {
         assertThrows(IllegalArgumentException.class, () -> service.create(MESSAGE1, CHAT1.getId(), USER3));
+    }
+
+    @Test
+    void createWithTagOnMessage() {
+        Message message = getCopy(MESSAGE1);
+        message.setData("<tag></tag>");
+        assertThrows(IllegalArgumentException.class, () -> service.create(message, CHAT1.getId(), USER3));
     }
 
     @Test
