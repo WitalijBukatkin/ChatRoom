@@ -33,7 +33,11 @@ public class UserService {
             throw new IllegalArgumentException("Passwords not equals!");
         }
 
-        proxy.register(new User(username, password));
+        try {
+            proxy.register(new User(username, password));
+        } catch (RuntimeException e) {
+            throw new IllegalArgumentException("User with this name exist, or different error, please try again");
+        }
     }
 
     public User getFromToken(String btoken) throws IOException {
