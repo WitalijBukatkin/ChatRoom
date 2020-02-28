@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
@@ -26,14 +25,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(HttpServletResponse response, Model model, @RequestParam String username, @RequestParam String password) {
+    public String login(Model model, @RequestParam String username, @RequestParam String password) {
         log.info("login {}", username);
 
         try {
             String token = service.login(username, password);
 
             model.addAttribute("token", "Bearer " + token);
-            model.addAttribute("userName", username);
+            model.addAttribute("userName", username.toLowerCase());
             return "chatroom";
         } catch (RuntimeException | IOException e) {
             model.addAttribute("error", "User or password not correct!");
