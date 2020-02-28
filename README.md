@@ -27,7 +27,7 @@
 Requirement packages:
  - docker and docker-compose
 	- You can install it for debian-based using:
-	```sudo apt-get update && sudo apt install docker docker-compose```
+	```sudo apt-get update && sudo apt install docker.io docker-compose```
  - openjdk11 and maven
 	- You can install it for debian-based using:
 	```sudo apt-get update && sudo apt install openjdk-11-jdk maven```
@@ -38,7 +38,6 @@ Requirement packages:
 2. Use this command for start:
 ```
 git clone https://github.com/WitalijBukatkin/ChatRoom
-unzip ChatRoom.zip
 cd ChatRoom
 mvn package
 sudo mvn docker-compose:up
