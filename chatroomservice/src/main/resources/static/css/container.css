@@ -31,7 +31,7 @@
     height: 90%;
     overflow: auto;
 
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .messages {
@@ -47,7 +47,6 @@
 .form-control {
     float: left;
     width: 85%;
-    margin-top: 10px;
 }
 
 @media screen and (max-width: 1000px), screen and (max-height: 600px) {
