@@ -24,6 +24,8 @@ public class MessageService {
         Assert.notNull(message, "message must not be null");
         Assert.notNull(userId, "userId must not be null");
 
+        Assert.doesNotContain("<", message.getData(), "data contains <");
+
         Message created = repository.save(message, chatId, userId);
 
         if (created == null) {
